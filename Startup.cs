@@ -37,6 +37,7 @@ namespace my_books
                 });
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Book", Version = "v1" });

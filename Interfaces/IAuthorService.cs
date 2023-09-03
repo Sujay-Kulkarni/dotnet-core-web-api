@@ -8,7 +8,7 @@ namespace my_books.Interfaces
         public void AddAuthor(AuthorVM authorVM);
         public List<Author> GetAllAuthor();
         public Author GetAuthor(int id);
-        public Author UpdatePublisher(int id, AuthorVM authorVM);
+        public Author UpdateAuthor(int id, AuthorVM authorVM);
         public void DeleteAuthor(int id);
     }
 }
