@@ -36,9 +36,10 @@ namespace my_books
                     object p = item.UseMySql(strConnection, ServerVersion.AutoDetect(strConnection));
                 });
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IPublisherService, PublisherService>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "my_books", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Book", Version = "v1" });
             });
         }
 

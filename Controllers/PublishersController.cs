@@ -44,7 +44,7 @@ namespace my_books.Controllers
             return Ok(publisher);
         }
 
-        [HttpDelete("remove-publisher/{publisherId")]
+        [HttpDelete("remove-publisher/{publisherId}")]
         public IActionResult DeletePublisher(int publisherId)
         {
             _service.DeletePublisher(publisherId);

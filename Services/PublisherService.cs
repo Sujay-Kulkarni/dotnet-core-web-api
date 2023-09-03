@@ -23,6 +23,11 @@ namespace my_books.Services
         public void DeletePublisher(int id)
         {
             Publisher publisher = _context.Publishers.FirstOrDefault(p => p.Id == id);
+            if (publisher != null)
+            {
+                _context.Remove(publisher);
+                _context.SaveChanges();
+            }
         }
 
         public List<Publisher> GetAllPulishers() => _context.Publishers.ToList();
