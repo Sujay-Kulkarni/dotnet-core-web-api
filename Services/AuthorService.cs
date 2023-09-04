@@ -37,6 +37,17 @@ namespace my_books.Services
         public List<Author> GetAllAuthor() => _context.Authors.ToList();
         public Author GetAuthor(int id) => _context.Authors.FirstOrDefault(a => a.Id == id);
 
+        public AuthorWithBookVM GetAuthorWithBook(int id)
+        {
+            var authorDetails = _context.Authors.Where(a => a.Id == id).Select(book => new AuthorWithBookVM()
+            {
+                FullName = book.FullName,
+                Books = book.Book_Authors.Select(b => b.Book.Title).ToList()
+            }).FirstOrDefault();
+
+            return authorDetails;
+        }
+
         public Author UpdateAuthor(int id, AuthorVM authorVM)
         {
             Author author = _context.Authors.FirstOrDefault(a => a.Id == id);

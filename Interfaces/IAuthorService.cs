@@ -10,5 +10,6 @@ namespace my_books.Interfaces
         public Author GetAuthor(int id);
         public Author UpdateAuthor(int id, AuthorVM authorVM);
         public void DeleteAuthor(int id);
+        public AuthorWithBookVM GetAuthorWithBook(int id);
     }
 }

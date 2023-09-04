@@ -21,10 +21,10 @@ namespace my_books.Controllers
             return Ok(lstBooks);
         }
 
-        [HttpGet("get-book-by-id/{bookId}")]
+        [HttpGet("get-book-details-by-id/{bookId}")]
         public IActionResult GetBookById(int bookId)
         {
-            var objBook = _service.GetBookById(bookId);
+            var objBook = _service.GetBookWithAuthor(bookId);
             return Ok(objBook);
         }
 

@@ -34,6 +34,22 @@ namespace my_books.Services
 
         public Publisher GetPublisher(int id) => _context.Publishers.FirstOrDefault(p => p.Id == id);
 
+        public PublisherDetailsVM GetPublisherDetails(int id)
+        {
+            var publisherDetails = _context.Publishers.Where(p => p.Id == id)
+                                   .Select(publisher => new PublisherDetailsVM()
+                                   {
+                                       PublisherName = publisher.Name,
+                                       BookAuthors = publisher.Book.Select(books => new BookAuthorVM()
+                                       {
+                                           BookName = books.Title,
+                                           BookAuthors = books.Book_Authors.Select(author => author.Author.FullName).ToList()
+                                       }).ToList()
+                                   }).FirstOrDefault();
+
+            return publisherDetails;
+        }
+
         public Publisher UpdatePublisher(int id, PublisherVM publisherVM)
         {
             Publisher publisher = _context.Publishers.FirstOrDefault(p => p.Id == id);

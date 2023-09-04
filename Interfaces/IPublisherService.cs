@@ -11,5 +11,7 @@ namespace my_books.Interfaces
         public Publisher GetPublisher(int id);
         public Publisher UpdatePublisher(int id, PublisherVM publisherVM);
         public void DeletePublisher(int id);
+        public PublisherDetailsVM GetPublisherDetails(int id);
     }
+
 }

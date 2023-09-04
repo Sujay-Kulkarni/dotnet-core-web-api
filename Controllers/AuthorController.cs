@@ -32,8 +32,8 @@ namespace my_books.Controllers
         [HttpGet("get-author-by-id/{authorId}")]
         public IActionResult GetAuthorDetails(int authorId)
         {
-            Author author = _service.GetAuthor(authorId);
-            return Ok(author);
+            AuthorWithBookVM authorWithBook = _service.GetAuthorWithBook(authorId);
+            return Ok(authorWithBook);
         }
 
         [HttpPut("update-author/{authorId}")]
@@ -49,5 +49,12 @@ namespace my_books.Controllers
             _service.DeleteAuthor(authorId);
             return Ok();
         }
+
+        //[HttpGet("get-author-details/{authorId}")]
+        //public IActionResult GetAuthorDetails(int authorId)
+        //{
+        //    AuthorWithBookVM authorWithBook = _service.GetAuthorWithBook(authorId);
+        //    return Ok(authorWithBook);
+        //}
     }
 }
