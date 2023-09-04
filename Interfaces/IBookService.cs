@@ -6,7 +6,7 @@ namespace my_books.Interfaces
 {
     public interface IBookService
     {
-        public void AddBook(BookVM bookVM);
+        public BookWithAuthorVM AddBook(BookVM bookVM);
         public List<Book> GetAllBooks();
         public Book GetBookById(int bookId);
         public Book UpdateBookById(int bookId, BookVM bookVM);

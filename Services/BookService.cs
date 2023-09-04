@@ -15,7 +15,7 @@ namespace my_books.Services
         {
             _context = context;
         }
-        public void AddBook(BookVM bookVM)
+        public BookWithAuthorVM AddBook(BookVM bookVM)
         {
             Book bookObj = new()
             {
@@ -43,6 +43,8 @@ namespace my_books.Services
                 _context.Books_Authors.Add(_book_authors);
                 _context.SaveChanges();
             }
+
+            return GetBookWithAuthor(bookObj.Id);
         }
 
         public void DeleteBookById(int bookId)
@@ -55,7 +57,7 @@ namespace my_books.Services
             }
         }
 
-        public List<Book> GetAllBooks() => _context.Books.ToList();
+        public List<Book> GetAllBooks() => _context.Books.Where(b => b.Id == 0).ToList();
         public Book GetBookById(int bookId) => _context.Books.FirstOrDefault(n => n.Id == bookId);
 
         public BookWithAuthorVM GetBookWithAuthor(int bookId)

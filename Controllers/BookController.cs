@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using my_books.Interfaces;
+using my_books.Models;
 using my_books.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace my_books.Controllers
 {
@@ -15,25 +18,37 @@ namespace my_books.Controllers
         }
 
         [HttpGet("get-all-books")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Book>))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult GetAllBooks()
         {
             var lstBooks = _service.GetAllBooks();
-            return Ok(lstBooks);
+            if (lstBooks.Count > 0)
+                return Ok(lstBooks);
+            return NoContent();
         }
 
         [HttpGet("get-book-details-by-id/{bookId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Book))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBookById(int bookId)
         {
             var objBook = _service.GetBookWithAuthor(bookId);
-            return Ok(objBook);
+            if (objBook != null)
+                return Ok(objBook);
+            return NotFound();
         }
 
 
         [HttpPost("add-book")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(BookWithAuthorVM))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddBook([FromBody] BookVM bookVm)
         {
-            _service.AddBook(bookVm);
-            return Ok();
+            var respons = _service.AddBook(bookVm);
+            if (respons != null)
+                return Created(nameof(AddBook), respons);
+            return BadRequest();
         }
 
         [HttpPut("update-book-by-id/{bookId}")]
