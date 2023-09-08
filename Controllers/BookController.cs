@@ -12,6 +12,7 @@ namespace my_books.Controllers
         public BookController(IBookService service)
         {
             _service = service;
+            throw new System.Exception("This will catch by global exception filter middleware");
         }
 
         [HttpGet("get-all-books")]

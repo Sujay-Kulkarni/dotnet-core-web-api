@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using my_books.Context;
 using my_books.Data;
+using my_books.Exceptions;
 using my_books.Interfaces;
 using my_books.Services;
 
@@ -51,10 +52,10 @@ namespace my_books
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/api/Error/error");
-            }
+            //else
+            //{
+            //    app.UseExceptionHandler("/api/Error/error");
+            //}
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "my_books v1"));
@@ -62,6 +63,10 @@ namespace my_books
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //Execption middleware
+            //app.ExceptionHandler();
+            app.CustomExecptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
