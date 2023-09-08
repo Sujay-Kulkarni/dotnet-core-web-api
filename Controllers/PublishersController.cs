@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using my_books.Exceptions;
 using my_books.Interfaces;
 using my_books.Models;
 using my_books.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace my_books.Controllers
@@ -19,13 +21,27 @@ namespace my_books.Controllers
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisherVM)
         {
-            _service.AddPulisher(publisherVM);
-            return Ok();
+            try
+            {
+                _service.AddPulisher(publisherVM);
+                return Ok();
+            }
+            catch (InNotValidNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Publisher Name: {ex.Name}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpGet("get-all-publishers")]
         public IActionResult GetAllPublishers()
         {
+            throw new Exception("This is not system generated exception");
+
             List<Publisher> publishers = _service.GetAllPulishers();
             return Ok(publishers);
         }

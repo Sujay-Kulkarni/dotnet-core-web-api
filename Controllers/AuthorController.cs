@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using my_books.Exceptions;
 using my_books.Interfaces;
 using my_books.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace my_books.Controllers
@@ -9,7 +11,7 @@ namespace my_books.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        private IAuthorService _service;
+        private readonly IAuthorService _service;
         public AuthorController(IAuthorService service)
         {
             _service = service;
@@ -18,8 +20,20 @@ namespace my_books.Controllers
         [HttpPost("add-author")]
         public IActionResult AddAuthor([FromBody] AuthorVM authorVM)
         {
-            _service.AddAuthor(authorVM);
-            return Ok();
+            try
+            {
+                _service.AddAuthor(authorVM);
+                return Ok();
+            }
+            catch (InNotValidNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Author Name: {ex.Name}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpGet("get-all-authors")]

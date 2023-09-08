@@ -1,9 +1,12 @@
 ﻿using my_books.Context;
+using my_books.Exceptions;
 using my_books.Interfaces;
 using my_books.Models;
 using my_books.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace my_books.Services
 {
@@ -16,8 +19,18 @@ namespace my_books.Services
         }
         public void AddPulisher(PublisherVM publisherVM)
         {
-            _context.Publishers.Add(new Publisher() { Name = publisherVM.Name });
-            _context.SaveChanges();
+            if (Utilites.Utilites.IsNameValid(publisherVM.Name))
+                throw new InNotValidNameException("Name starts with number", publisherVM.Name);
+
+            try
+            {
+                _context.Publishers.Add(new Publisher() { Name = publisherVM.Name });
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public void DeletePublisher(int id)

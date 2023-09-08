@@ -1,4 +1,5 @@
 ﻿using my_books.Context;
+using my_books.Exceptions;
 using my_books.Interfaces;
 using my_books.Models.ViewModels;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace my_books.Services
         }
         public void AddAuthor(AuthorVM authorVM)
         {
+            if (Utilites.Utilites.IsNameValid(authorVM.FullName))
+                throw new InNotValidNameException("Name starts with number", authorVM.FullName);
+
             Author author = new()
             {
                 FullName = authorVM.FullName
