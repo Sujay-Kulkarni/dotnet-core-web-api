@@ -40,8 +40,6 @@ namespace my_books.Controllers
         [HttpGet("get-all-publishers")]
         public IActionResult GetAllPublishers()
         {
-            throw new Exception("This is not system generated exception");
-
             List<Publisher> publishers = _service.GetAllPulishers();
             return Ok(publishers);
         }

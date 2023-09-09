@@ -65,8 +65,8 @@ namespace my_books
             app.UseAuthorization();
 
             //Execption middleware
-            //app.ExceptionHandler();
-            app.CustomExecptionHandler();
+            app.ExceptionHandler();
+            //app.CustomExecptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
