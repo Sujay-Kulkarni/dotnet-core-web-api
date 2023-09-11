@@ -28,7 +28,6 @@ namespace my_books.Controllers
             return Ok(objBook);
         }
 
-
         [HttpPost("add-book")]
         public IActionResult AddBook([FromBody] BookVM bookVm)
         {
@@ -48,6 +47,17 @@ namespace my_books.Controllers
         {
             _service.DeleteBookById(bookId);
             return Ok();
+        }
+
+        [HttpGet("search")]
+        public IActionResult SearchBook(string bookTitle, int? pageNumber)
+        {
+            var result = _service.SearchBook(bookTitle, pageNumber);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
         }
     }
 }

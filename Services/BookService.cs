@@ -2,6 +2,7 @@
 using my_books.Interfaces;
 using my_books.Models;
 using my_books.Models.ViewModels;
+using my_books.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,34 @@ namespace my_books.Services
                 }).FirstOrDefault();
 
             return bookWithAuthor;
+        }
+
+        public List<BookWithAuthorVM> SearchBook(string bookName, int? pageNumber)
+        {
+            if (!String.IsNullOrEmpty(bookName))
+            {
+                var bookWithAuthor = _context.Books.Where(b => b.Title.Contains(bookName))
+                .Select(book => new BookWithAuthorVM()
+                {
+                    Title = book.Title,
+                    Description = book.Description,
+                    IsRead = book.IsRead,
+                    DateRead = book.IsRead ? book.DateRead : null,
+                    Rate = book.IsRead ? book.Rate : null,
+                    Genre = book.Genre,
+                    CoverURL = book.CoverURL,
+                    PublisherName = book.Publisher.Name,
+                    Authors = book.Book_Authors.Select(a => a.Author.FullName).ToList()
+                }).ToList();
+
+                // pagination 
+
+                bookWithAuthor = PaginatedList<BookWithAuthorVM>.Create(bookWithAuthor.AsQueryable(), pageNumber ?? 1, 2);
+
+                return bookWithAuthor;
+            }
+
+            return null;
         }
 
         public Book UpdateBookById(int bookId, BookVM bookVM)

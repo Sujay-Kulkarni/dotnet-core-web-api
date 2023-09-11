@@ -38,9 +38,9 @@ namespace my_books.Controllers
         }
 
         [HttpGet("get-all-publishers")]
-        public IActionResult GetAllPublishers()
+        public IActionResult GetAllPublishers(string sortBy)
         {
-            List<Publisher> publishers = _service.GetAllPulishers();
+            List<Publisher> publishers = _service.GetAllPulishers(sortBy);
             return Ok(publishers);
         }
 

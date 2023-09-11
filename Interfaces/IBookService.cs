@@ -12,5 +12,6 @@ namespace my_books.Interfaces
         public Book UpdateBookById(int bookId, BookVM bookVM);
         public void DeleteBookById(int bookId);
         public BookWithAuthorVM GetBookWithAuthor(int bookId);
+        public List<BookWithAuthorVM> SearchBook(string bookName, int? pageNumber);
     }
 }

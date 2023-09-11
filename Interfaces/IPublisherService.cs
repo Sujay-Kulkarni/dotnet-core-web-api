@@ -7,7 +7,7 @@ namespace my_books.Interfaces
     public interface IPublisherService
     {
         public void AddPulisher(PublisherVM publisherVM);
-        public List<Publisher> GetAllPulishers();
+        public List<Publisher> GetAllPulishers(string sortBy);
         public Publisher GetPublisher(int id);
         public Publisher UpdatePublisher(int id, PublisherVM publisherVM);
         public void DeletePublisher(int id);

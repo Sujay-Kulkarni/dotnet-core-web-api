@@ -43,13 +43,28 @@ namespace my_books.Services
             }
         }
 
-        public List<Publisher> GetAllPulishers() => _context.Publishers.ToList();
+        public List<Publisher> GetAllPulishers(string sortBy)
+        {
+            List<Publisher> allPublishers = _context.Publishers.OrderBy(o => o.Name).ToList();
+
+            if (!String.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy)
+                {
+                    case "name_desc": allPublishers = allPublishers.OrderByDescending(o => o.Name).ToList(); break;
+                    default:
+                        break;
+                }
+            }
+
+            return allPublishers;
+        }
 
         public Publisher GetPublisher(int id) => _context.Publishers.FirstOrDefault(p => p.Id == id);
 
         public PublisherDetailsVM GetPublisherDetails(int id)
         {
-            var publisherDetails = _context.Publishers.Where(p => p.Id == id)
+            var publisherDetails = _context.Publishers.Where(p => p.Id == id).OrderBy(o => o.Name)
                                    .Select(publisher => new PublisherDetailsVM()
                                    {
                                        PublisherName = publisher.Name,

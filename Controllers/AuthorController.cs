@@ -37,6 +37,7 @@ namespace my_books.Controllers
         }
 
         [HttpGet("get-all-authors")]
+        //[Produces("application/xml")]
         public IActionResult GetAllAuthors()
         {
             List<Author> authors = _service.GetAllAuthor();
