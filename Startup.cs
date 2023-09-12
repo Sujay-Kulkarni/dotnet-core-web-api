@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,14 @@ namespace my_books
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddApiVersioning(c =>
+            {
+                c.DefaultApiVersion = new ApiVersion(1, 0);
+                c.AssumeDefaultVersionWhenUnspecified = true;
+
+                //c.ApiVersionReader = new HeaderApiVersionReader("custom-version");
+                //c.ApiVersionReader = new MediaTypeApiVersionReader();
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Book", Version = "v1" });

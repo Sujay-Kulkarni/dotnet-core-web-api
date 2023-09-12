@@ -4,7 +4,11 @@ using my_books.Models.ViewModels;
 
 namespace my_books.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    //[ApiVersion("1.2")]
+    //[ApiVersion("1.9")]
+    //[Route("api/[controller]")]
+    [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -14,7 +18,7 @@ namespace my_books.Controllers
             _service = service;
         }
 
-        [HttpGet("get-all-books")]
+        [HttpGet("get-all-books"), MapToApiVersion("1.9")]
         public IActionResult GetAllBooks()
         {
             var lstBooks = _service.GetAllBooks();

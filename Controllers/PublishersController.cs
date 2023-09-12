@@ -8,7 +8,9 @@ using System.Collections.Generic;
 
 namespace my_books.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    //[Route("api/[controller]")]
+    [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     public class PublishersController : ControllerBase
     {
